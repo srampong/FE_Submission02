@@ -22,17 +22,26 @@ User.login = function (credentials)
    
     // Authenticate user login
    fetch('https://freddy.codesubmit.io/login', {
-        headers: {
-            'Authorization': `Basic ${btoa(user.username)}:${btoa(user.password)}`
-        }
+       method: "POST",
+        headers: {'Content-Type': 'application/json','Accept': '*/*' ,'Accept-Encoding': 'gzip, deflate, br' 
+        ,'Connection':'keep-alive'}, 
+        body: JSON.stringify(user)
     }).then(function (response) {
         if (response.ok) {
+           // console.log("response"+response)
             return response.json();
         }
         throw response;
     }).then(function (data) {
-        console.log(data);
+        
+        User.save(user,data)
+        document.location.href = "home.html";
+        console.log("access_token: "+ data.access_token);
+        console.log("refresh_token: "+ data.refresh_token);
+        
+        
     }).catch(function (error) {
+        
         console.warn(error);
     });
 
@@ -42,9 +51,6 @@ User.login = function (credentials)
 User.logout = function (credentials)
 {
    var user = new User(credentials);
-
- 
-
     // Authenticate user login
    fetch('https://some-awesome-api.com/authenticate', {
         headers: {
@@ -63,3 +69,12 @@ User.logout = function (credentials)
 
 
 };
+
+User.save = function(slots,data)
+{
+    localStorage.setItem("username", slots.username);
+    localStorage.setItem("password", slots.password);
+    localStorage.setItem("login", true);
+    localStorage.setItem("access_token", data.access_token);
+    localStorage.setItem("refresh_token", data.refresh_token);
+}

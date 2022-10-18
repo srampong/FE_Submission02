@@ -4,6 +4,9 @@
 ************************************************/
 cs.views.auth = {
   setupUserInterface: function () {
+
+
+    
         
      var loginButtton = document.forms["User"].commit;
        
@@ -14,14 +17,13 @@ cs.views.auth = {
     },
 
   // authenticate  user using input data
-  authenticateUser: function () {
-
+  authenticateUser: function (event) {
+    event.preventDefault();
     var formEl = document.forms['User'];
     var slots = { username: formEl.username.value, 
         password: formEl.password.value, 
     }
-    
-    console.log(slots);
+  
     User.login(slots);
     formEl.reset();
   }
