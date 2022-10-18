@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
 	<meta charset="utf-8">
@@ -10,13 +10,17 @@
 	<meta name="keywords" content="web candy shop">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
 	<title>Login In</title>
 
 	<link href="css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-	<script src="src/c/initialize.js"></script>
+	<script src="src/controllers/initialize.js"></script>
+    <script src="src/models/User.js"></script>
+    <script src="src/views/auth.js"></script>
+	<script>
+		window.addEventListener("load", cs.views.auth.setupUserInterface);
+	</script>
 
 </head>
 
@@ -42,15 +46,15 @@
 											</div>
 										</div>
 									</div>
-									<form>
+									<form id="User">
 										<div class="mb-4">
-											<label class="form-label">Username</label>
-											<input class="form-control form-control-lg" type="email" name="email"
+											<label  for="username" class="form-label">Username</label>
+											<input class="form-control form-control-lg" type="text" id="username" name="username"
 												placeholder="Enter your username" />
 										</div>
 										<div class="mb-6">
-											<label class="form-label">Password</label>
-											<input class="form-control form-control-lg" type="password" name="password"
+											<label for="password"  class="form-label">Password</label>
+											<input class="form-control form-control-lg" id="password" type="password" name="password"
 												placeholder="Enter your password" />
 											<small>
 
@@ -58,8 +62,9 @@
 										</div>
 										
 										<div class="text-center  mt-3">
-											<a href="index.html" class="btn w-100 btn-lg btn-secondary ">Login</a>
-											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
+											
+											<button  name="commit" class="btn w-100 btn-lg btn-secondary ">Login</button>
+										
 										</div>
 									</form>
 								</div>

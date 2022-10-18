@@ -1,7 +1,8 @@
 /**
- * @fileOverview  Defining the main namespace ("public library") and its MVC subnamespaces
- * @author Gerd Wagner
+ * @fileOverview  Defining the main namespace ("candy shop") and its MVC subnamespaces
+ * @author 
  */
-'use strict';
-// main namespace pl = "public library"
-var pl = { m:{}, v:{}, c:{} };
+ 'use strict';
+ // main namespace cs = "candy shop"
+ var cs = { models:{}, views:{}, controllers:{} };
+ 
