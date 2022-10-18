@@ -38,9 +38,9 @@ Home.scheduleTokenRefresh = function () {
         }).then(function (data) {
 
             console.log("access_token: " + data.access_token);
-            console.log("refresh_token: " + data.refresh_token);
             localStorage.setItem("access_token", data.access_token);
-            localStorage.setItem("refresh_token", data.refresh_token);
+
+           
 
 
 
@@ -49,7 +49,7 @@ Home.scheduleTokenRefresh = function () {
             console.warn(error);
         });
 
-    }, 5000);
+    }, 600000);
 }
 
 
@@ -88,7 +88,7 @@ Home.retrieveDashbaord = function () {
 
 };
 
-User.logout = function (credentials) {
+Home.logout = function (credentials) {
     var user = new User(credentials);
     // Authenticate user login
     fetch('https://some-awesome-api.com/authenticate', {
@@ -109,7 +109,7 @@ User.logout = function (credentials) {
 
 };
 
-User.save = function (slots, data) {
+Home.save = function (slots, data) {
     localStorage.setItem("username", slots.username);
     localStorage.setItem("password", slots.password);
     localStorage.setItem("login", true);
