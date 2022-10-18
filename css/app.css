@@ -13400,7 +13400,7 @@ a.sidebar-link svg {
 .sidebar-item.active>.sidebar-link {
     background: linear-gradient(90deg, rgba(59, 125, 221, .1), rgba(59, 125, 221, .088) 50%, transparent);
     border-left-color: #3b7ddd;
-    color: #e9ecef
+    color: #000
 }
 
 .sidebar-item.active .sidebar-link:hover i,

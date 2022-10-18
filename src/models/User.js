@@ -28,17 +28,18 @@ User.login = function (credentials)
         body: JSON.stringify(user)
     }).then(function (response) {
         if (response.ok) {
-           // console.log("response"+response)
+            console.log("response"+response)
             return response.json();
         }
         throw response;
     }).then(function (data) {
         
-        User.save(user,data)
-        document.location.href = "home.html";
         console.log("access_token: "+ data.access_token);
         console.log("refresh_token: "+ data.refresh_token);
-        
+       
+        User.save(user,data)
+        document.location.href = "home.html";
+         
         
     }).catch(function (error) {
         
