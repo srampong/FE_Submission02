@@ -12,7 +12,7 @@ cs.views.home = {
      
     }
     
-   // Home.retrieveDashbaord()
+     Home.retrieveDashbaord()
 
 
    

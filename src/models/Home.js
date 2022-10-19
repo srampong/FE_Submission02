@@ -52,6 +52,36 @@ Home.scheduleTokenRefresh = function () {
     }, 600000);
 }
 
+Home.retrieveDashbaord = function () {
+
+    // Retrieve dashboard data
+    fetch('https://freddy.codesubmit.io/dashboard', {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json', 'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate, br'
+            , 'Connection': 'keep-alive',
+            'Authorization': `Bearer ${localStorage.getItem("access_token")}`
+        },
+    }).then(function (response) {
+        if (response.ok) {
+            console.log("response" + response)
+            return response.json();
+        }
+        throw response;
+    }).then(function (data) {
+
+       var jsonData = JSON.parse(JSON.stringify(data));
+     
+
+
+    }).catch(function (error) {
+
+        console.warn(error);
+    });
+
+
+};
+
 
 
 
