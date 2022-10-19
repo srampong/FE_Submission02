@@ -25,7 +25,7 @@ cs.views.auth = {
     }
   
     User.login(slots);
-    formEl.reset();
+    
   }
 
 }
