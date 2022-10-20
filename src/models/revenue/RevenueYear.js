@@ -26,20 +26,15 @@ RevenueYear.add = function (slots) {
   };
 
 
-RevenueYear.getTotal = function()
-{
-    var total = 0;
 
-    for(let i = 1 ; i<=Object.keys(RevenueYear.instances).length; i++)
-    {
-         var revenue = RevenueYear.instances[i];
-         total += revenue.total;
-    }
-
-    return total;
-}
-
-
+  RevenueYear.get = function(index)
+  {
+  
+    RevenueYear.retrieveAll()
+    return RevenueYear.instances[index]
+  
+  }
+  
 
 RevenueYear.saveAll = function(revenues)
 {
@@ -55,7 +50,7 @@ RevenueYear.saveAll = function(revenues)
 
   try {
       var  revenuesString = JSON.stringify( RevenueYear.instances);
-      localStorage.setItem("revenues", revenuesString);
+      localStorage.setItem("revenuesYear", revenuesString);
     } catch (e) {
       alert("Error when writing to Local Storage\n" + e);
    
@@ -66,8 +61,8 @@ RevenueYear.saveAll = function(revenues)
 RevenueYear.retrieveAll = function () {
   var key="", keys=[], revenuesString ="", revenues={}, i=0;  
   try {
-    if (localStorage.getItem("revenues")) {
-      revenuesString  = localStorage.getItem("revenues");
+    if (localStorage.getItem("revenuesYear")) {
+      revenuesString  = localStorage.getItem("revenuesYear");
     }
   } catch (e) {
     alert("Error when reading from Local Storage\n" + e);
@@ -75,7 +70,7 @@ RevenueYear.retrieveAll = function () {
   if (revenuesString ) {
     revenues = JSON.parse( revenuesString );
     keys = Object.keys( revenues);
-    console.log( keys.length +" revenues loaded.");
+    console.log( keys.length +" revenues years loaded.");
     for (i=0; i < keys.length; i++) {
       key = keys[i];
       RevenueYear.instances[key] = RevenueYear.convertRow2Obj( revenues[key]);

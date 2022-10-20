@@ -18,15 +18,44 @@ cs.views.home = {
     Home.scheduleTokenRefresh()
     Home.retrieveDashbaord().then(function () {
       cs.views.home.listBestSellers();
+      cs.views.home.getOrderSummary();
       cs.views.home.initRevenueChart("week");
-     
+      cs.views.home.setUpSwitch();
+
     })
 
-     
+   
 
   },
 
- 
+  getOrderSummary : function(){
+
+    var weekSummary = document.getElementById("week_summary");
+    var weekOrder = document.getElementById("week_order");
+    weekSummary.innerHTML = "$"+RevenueWeek.get(2).total + " / ";
+    weekOrder.innerHTML = RevenueWeek.get(2).orders + " orders";
+
+
+    var monthSummary = document.getElementById("month_summary");
+    var monthOrder = document.getElementById("month_order");
+    monthSummary.innerHTML = "$"+RevenueYear.get(2).total + " / ";
+    monthOrder.innerHTML = RevenueYear.get(2).orders + " orders";
+
+  },
+  setUpSwitch : function() {
+    
+    var switichButton = document.getElementById("switch");
+    var chartHeader = document.getElementById("chart_title");
+    switichButton.addEventListener('change',function(){
+      if(this.checked == true){
+        cs.views.home.initRevenueChart("year")
+        chartHeader.innerHTML = "Revenue (last 12 months)";
+      }else{
+        cs.views.home.initRevenueChart("week")
+        chartHeader.innerHTML = "Revenue (last 7 days)";
+      }
+    });
+  },
 
   listBestSellers: function () {
 
@@ -51,9 +80,9 @@ cs.views.home = {
     var keys = [], key = "", i = 0;
 
     // load all revenue objects
-    type == "week" ? RevenueWeek.retrieveAll(): RevenueYear.retrieveAll();
-    var data = type == "week"  ? RevenueWeek.instances :RevenueYear.instances;
-
+    type === "week" ? RevenueWeek.retrieveAll(): RevenueYear.retrieveAll();
+    var data = type === "week"  ? RevenueWeek.instances : RevenueYear.instances;
+    console.log(type)
     keys = Object.keys(data);
     var revenues = [];
     // for each revenue, add to the revenue array
@@ -73,7 +102,8 @@ cs.views.home = {
 			new Chart(document.getElementById("chartjs-dashboard-bar"), {
 				type: "bar",
 				data: {
-					labels: type ==="week" ? ["today", "yesterday", "day 3", "day 4", "day 5", "day 6", "day 7"]: ["this month", "last month", "month 3", "month 4", "month 5", "month 6", "month 7"],
+					labels: type ==="week" ? ["today", "yesterday", "day 3", "day 4", "day 5", "day 6", "day 7"]: ["this month", "last month", "month 3", "month 4", "month 5", "month 6", "month 7","month 8", "month 9", "month 10"
+        ,"month 11", "month 12"],
 					datasets: [{
 						label: type ==="week" ? "This week":"This year",
 						backgroundColor: window.theme.primary,

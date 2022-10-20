@@ -27,17 +27,11 @@ RevenueWeek.add = function (slots) {
   };
 
 
-RevenueWeek.getTotal = function()
+RevenueWeek.get = function(index)
 {
-    var total = 0;
 
-    for(let i = 1 ; i<=Object.keys(RevenueWeek.instances).length; i++)
-    {
-         var revenue = RevenueWeek.instances[i];
-         total += revenue.total;
-    }
-
-    return total;
+    RevenueWeek.retrieveAll()
+    return RevenueWeek.instances[index]
 
 }
 

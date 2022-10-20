@@ -74,7 +74,7 @@ Home.retrieveDashbaord = async function () {
       // console.log(jsonData.dashboard)
        BestSeller.saveAll(jsonData.dashboard.bestsellers)
        RevenueWeek.saveAll(jsonData.dashboard.sales_over_time_week)
-       RevenueYear.saveAll(jsonData.dashboard.sales_over_time_week)
+       RevenueYear.saveAll(jsonData.dashboard.sales_over_time_year)
        //console.log(jsonData.dashboard.sales_over_time_week)
 
 
