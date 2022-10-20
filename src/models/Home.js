@@ -64,7 +64,7 @@ Home.retrieveDashbaord = async function () {
         },
     }).then(function (response) {
         if (response.ok) {
-            console.log("response" + response)
+           // console.log("response" + response)
             return response.json();
         }
         throw response;
@@ -74,6 +74,7 @@ Home.retrieveDashbaord = async function () {
       // console.log(jsonData.dashboard)
        BestSeller.saveAll(jsonData.dashboard.bestsellers)
        RevenueWeek.saveAll(jsonData.dashboard.sales_over_time_week)
+       RevenueYear.saveAll(jsonData.dashboard.sales_over_time_week)
        //console.log(jsonData.dashboard.sales_over_time_week)
 
 

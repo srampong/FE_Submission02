@@ -39,3 +39,57 @@ RevenueYear.getTotal = function()
     return total;
 }
 
+
+
+RevenueYear.saveAll = function(revenues)
+{
+  
+
+  for( const key of  Object.keys(revenues))
+  {
+        var revenue =  JSON.parse(JSON.stringify(revenues[key]))
+        revenue["id"] = key;
+        RevenueYear.add(revenue); 
+  }
+  
+
+  try {
+      var  revenuesString = JSON.stringify( RevenueYear.instances);
+      localStorage.setItem("revenues", revenuesString);
+    } catch (e) {
+      alert("Error when writing to Local Storage\n" + e);
+   
+    }  
+}
+
+
+RevenueYear.retrieveAll = function () {
+  var key="", keys=[], revenuesString ="", revenues={}, i=0;  
+  try {
+    if (localStorage.getItem("revenues")) {
+      revenuesString  = localStorage.getItem("revenues");
+    }
+  } catch (e) {
+    alert("Error when reading from Local Storage\n" + e);
+  }
+  if (revenuesString ) {
+    revenues = JSON.parse( revenuesString );
+    keys = Object.keys( revenues);
+    console.log( keys.length +" revenues loaded.");
+    for (i=0; i < keys.length; i++) {
+      key = keys[i];
+      RevenueYear.instances[key] = RevenueYear.convertRow2Obj( revenues[key]);
+     // console.log(RevenueYear.instances[key])
+    }
+  }
+};
+
+
+RevenueYear.convertRow2Obj = function (revenueRow) {
+ 
+  var revenue = new RevenueYear(revenueRow);
+  return revenue;
+};
+
+
+

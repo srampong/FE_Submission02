@@ -16,7 +16,7 @@ cs.views.home = {
     Home.scheduleTokenRefresh()
     Home.retrieveDashbaord().then(function () {
       cs.views.home.listBestSellers()
-      cs.views.home.switchToWeeklyRevenueChart()
+      cs.views.home.initRevenueChart("year")
     })
 
 
@@ -40,22 +40,25 @@ cs.views.home = {
 
   },
 
-   switchToWeeklyRevenueChart: function () {
+   initRevenueChart: function (type) {
 
-    var keys = [], key = "", row = {}, i = 0;
+    var keys = [], key = "", i = 0;
+
     // load all revenue objects
-    RevenueWeek.retrieveAll();
-    keys = Object.keys(RevenueWeek.instances);
+    type == "week" ? RevenueWeek.retrieveAll(): RevenueYear.retrieveAll();
+    var data = type == "week"  ? RevenueWeek.instances :RevenueYear.instances;
+
+    keys = Object.keys(data);
     var revenues = [];
     // for each revenue, add to the revenue array
     for (i = 0; i < keys.length; i++) {
       key = keys[i];
-      revenues.push(RevenueWeek.instances[key].total)
+      revenues.push(data[key].total)
     }
 
-    console.log(revenues)
+   // console.log(revenues)
     //display the weekly revenue data in the chart 
-    cs.views.home.displayChart(revenues,"week");
+    cs.views.home.displayChart(revenues,type);
 
   },
 
@@ -64,7 +67,7 @@ cs.views.home = {
 			new Chart(document.getElementById("chartjs-dashboard-bar"), {
 				type: "bar",
 				data: {
-					labels: ["today", "yesterday", "day 3", "day 4", "day 5", "day 6", "day 7"],
+					labels: type ==="week" ? ["today", "yesterday", "day 3", "day 4", "day 5", "day 6", "day 7"]: ["this month", "last month", "month 3", "month 4", "month 5", "month 6", "month 7"],
 					datasets: [{
 						label: type ==="week" ? "This week":"This year",
 						backgroundColor: window.theme.primary,
