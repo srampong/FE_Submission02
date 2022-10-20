@@ -1,4 +1,4 @@
-
+'use strict'
 /***********************************************
 ***  Methods for home dashboard   ******
 ************************************************/
@@ -13,14 +13,20 @@ cs.views.home = {
       console.log("token refresh active")
     }
 
+  
+
     Home.scheduleTokenRefresh()
     Home.retrieveDashbaord().then(function () {
-      cs.views.home.listBestSellers()
-      cs.views.home.initRevenueChart("year")
+      cs.views.home.listBestSellers();
+      cs.views.home.initRevenueChart("week");
+     
     })
 
+     
 
   },
+
+ 
 
   listBestSellers: function () {
 
