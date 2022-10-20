@@ -49,10 +49,10 @@ Home.scheduleTokenRefresh = function () {
             console.warn(error);
         });
 
-    }, 600000);
+    }, 5000);
 }
 
-Home.retrieveDashbaord = function () {
+Home.retrieveDashbaord = async function () {
 
     // Retrieve dashboard data
     fetch('https://freddy.codesubmit.io/dashboard', {
@@ -71,7 +71,8 @@ Home.retrieveDashbaord = function () {
     }).then(function (data) {
 
        var jsonData = JSON.parse(JSON.stringify(data));
-     
+      // console.log(jsonData.dashboard)
+       BestSeller.saveAll(jsonData.dashboard.bestsellers)
 
 
     }).catch(function (error) {

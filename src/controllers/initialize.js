@@ -9,3 +9,4 @@
  {
     //document.location.href = "../CandyShop/home.html";
  }
+ 

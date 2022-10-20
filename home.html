@@ -16,6 +16,9 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	<script src="src/controllers/initialize.js"></script>
     <script src="src/models/Home.js"></script>
+	<script src="src/models/BestSeller.js"></script>
+	<script src="src/models/revenue/RevenueWeek.js"></script>
+	<script src="src/models/revenue/RevenueYear.js"></script>
     <script src="src/views/home.js"></script>
 	<script>
 		window.addEventListener("load", cs.views.home.setupUserInterface);
@@ -156,23 +159,17 @@
 					<div class="row">
 						<div class="col-12 col-md-12 col-xxl-12 d-flex order-3 order-xxl-2">
 							<div class="card flex-fill">
-								<table class="table table-hover my-0">
+								<table  id="bestsellers" class="table table-hover my-0">
 									<thead>
 										<tr>
 											<th>Product Name</th>
-											<th class="d-none d-xl-table-cell">Price</th>
-											<th class="d-none d-xl-table-cell"># Units Sold</th>
 											<th>Revenue</th>
+											<th># Units Sold</th>
+											
 											
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>Item 1</td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-md-table-cell"></td>
-										</tr>
 									
 									</tbody>
 								</table>
