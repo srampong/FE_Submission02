@@ -73,6 +73,8 @@ Home.retrieveDashbaord = async function () {
        var jsonData = JSON.parse(JSON.stringify(data));
       // console.log(jsonData.dashboard)
        BestSeller.saveAll(jsonData.dashboard.bestsellers)
+       RevenueWeek.saveAll(jsonData.dashboard.sales_over_time_week)
+       //console.log(jsonData.dashboard.sales_over_time_week)
 
 
     }).catch(function (error) {

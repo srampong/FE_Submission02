@@ -18,15 +18,6 @@ function BestSeller(slots) {
 
 BestSeller.instances = {};
 
-
-BestSeller.add = function (slots) {
-    var bestseller = new BestSeller( slots);
-    // add bestseller to the Bestseller.instances collection
-    BestSeller.instances[slots.product.id] = bestseller;
-
-  };
-
-
   BestSeller.add = function (slots) {
     var bestseller = new BestSeller( slots);
     // add bestseller to the Bestseller.instances collection
