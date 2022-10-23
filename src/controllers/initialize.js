@@ -7,7 +7,7 @@
  var cs = { models:{}, views:{}, controllers:{} };
  if(localStorage.getItem("login"))
  {
-    //document.location.href = "../CandyShop/home.html";
+    document.location.href = "../CandyShop/home.html";
  }
 
 

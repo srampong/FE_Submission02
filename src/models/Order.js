@@ -24,17 +24,17 @@ var currentPage = 1;
 
 Order.instances = {};
 
-  Order.add = function (slots) {
+Order.add = function (slots) {
     var data = new Order( slots);
     // add Orders to the Orders.instances collection
     Order.instances[slots.id] = data;
     
-  };
+ };
 
 
   Order.fetchAll = function(page,search_term)
   {
-    console.log("fetching "+ page)
+    console.log("fetching "+ page + " "+ search_term)
           // Retrieve dashboard data
       fetch(search_term !== ""? `https://freddy.codesubmit.io/orders?page=${page}&q=${search_term}` : `https://freddy.codesubmit.io/orders?page=${page}`, {
         method: "GET",
@@ -52,8 +52,14 @@ Order.instances = {};
     }).then(function (data) {
 
          var jsonData = JSON.parse(JSON.stringify(data));
-         Order.saveAll(jsonData.orders)
-         cs.views.order.populateData(jsonData.page,jsonData.total);
+        
+     
+         if(search_term)
+         {
+             Order.instances = {}  
+         }
+            Order.saveAll(jsonData.orders)
+            cs.views.order.populateData(jsonData.page,jsonData.total,search_term);
 
     }).catch(function (error) {
 

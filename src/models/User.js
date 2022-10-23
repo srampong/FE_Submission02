@@ -77,7 +77,6 @@ User.save = function(slots,data)
     localStorage.setItem("username", slots.username);
     localStorage.setItem("password", slots.password);
     localStorage.setItem("login", true);
-   // console.log("refresh_token",data.refresh_token)
     localStorage.setItem("access_token", data.access_token);
     localStorage.setItem("refresh_token", data.refresh_token);
 }

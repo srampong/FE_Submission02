@@ -6,12 +6,26 @@ cs.views.order = {
   setupUserInterface: async function () {
 
     Order.fetchAll(1,"");
+    cs.views.order.handleSearch()
+ 
 
   },
 
-  populateData : function (pageNum,total) {
+  handleSearch : function (){
+           
+    const searchButton = document.getElementById('search-button');
+    const searchInput = document.getElementById('search-input');
+    searchButton.addEventListener('click', () => {
+    const inputValue = searchInput.value;
+
+    Order.fetchAll(1,inputValue);
+    
+});
+  },
+  populateData : function (pageNum,total,search_term) {
  
     var orderLength = Object.keys(Order.instances).length
+    console.log("order length"+orderLength)
 
     if(orderLength)
     {
@@ -30,10 +44,10 @@ cs.views.order = {
     const perPage = 50;
     const pageCount = Math.ceil(total/ perPage);
 
-    cs.views.order.getPaginationNumbers(pageCount,paginationContainer,pageNum);
+    cs.views.order.getPaginationNumbers(pageCount,paginationContainer,pageNum,search_term);
    
  
-    const prevRange = orderLength - perPage;
+    const prevRange = orderLength - perPage < 0 ? 0 : orderLength - perPage;
     const currRange = orderLength;
 
     console.log(prevRange)
@@ -61,17 +75,18 @@ cs.views.order = {
 
   },
 
-  getPaginationNumbers: function (pageCount,paginationContainer,pageNum) {
+  getPaginationNumbers: function (pageCount,paginationContainer,pageNum,search_term) {
     for (let i = 1; i <= pageCount; i++) {
-      cs.views.order.appendPageNumber(i,paginationContainer,false,false,pageNum);
+      cs.views.order.appendPageNumber(i,paginationContainer,false,false,pageNum,search_term);
     }
   },
 
-  appendPageNumber : function(index,paginationContainer,isPrevious,isNext,pageNum) {
+  appendPageNumber : function(index,paginationContainer,isPrevious,isNext,pageNum,search_term) {
     
     const pageNumber = document.createElement("li");
     pageNumber.className = `page-item ${index == pageNum ? 'active' :''}`;
     const link = pageNumber.appendChild(document.createElement("a"));
+    link.href="#"
     link.className = "page-link";
     link.setAttribute("onclick", `Order.fetchAll(${index},"")`);
     link.innerHTML = isNext ? 'Next' : isPrevious ? "Previous" : index;
