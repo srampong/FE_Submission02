@@ -72,7 +72,7 @@ RevenueWeek.get = function(index)
     if (revenuesString ) {
       revenues = JSON.parse( revenuesString );
       keys = Object.keys( revenues);
-      console.log( keys.length +" revenues loaded.");
+    //  console.log( keys.length +" revenues loaded.");
       for (i=0; i < keys.length; i++) {
         key = keys[i];
         RevenueWeek.instances[key] = RevenueWeek.convertRow2Obj( revenues[key]);

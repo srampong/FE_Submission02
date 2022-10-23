@@ -37,7 +37,7 @@ Home.scheduleTokenRefresh = function () {
             throw response;
         }).then(function (data) {
 
-            console.log("access_token: " + data.access_token);
+          //  console.log("access_token: " + data.access_token);
             localStorage.setItem("access_token", data.access_token);
 
            
@@ -64,18 +64,20 @@ Home.retrieveDashbaord = async function () {
         },
     }).then(function (response) {
         if (response.ok) {
-           // console.log("response" + response)
+           // console.log("dashboard response" + response)
             return response.json();
         }
         throw response;
     }).then(function (data) {
 
        var jsonData = JSON.parse(JSON.stringify(data));
-      // console.log(jsonData.dashboard)
+       //console.log(jsonData.dashboard)
        BestSeller.saveAll(jsonData.dashboard.bestsellers)
        RevenueWeek.saveAll(jsonData.dashboard.sales_over_time_week)
        RevenueYear.saveAll(jsonData.dashboard.sales_over_time_year)
        //console.log(jsonData.dashboard.sales_over_time_week)
+       cs.views.home.populateData()
+      
 
 
     }).catch(function (error) {

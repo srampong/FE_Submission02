@@ -55,7 +55,7 @@ BestSeller.instances = {};
     if (bestsellersString ) {
       bestsellers = JSON.parse( bestsellersString );
       keys = Object.keys( bestsellers);
-      console.log( keys.length +" bestsellers loaded.");
+     // console.log( keys.length +" bestsellers loaded.");
       for (i=0; i < keys.length; i++) {
         key = keys[i];
         BestSeller.instances[key] = BestSeller.convertRow2Obj( bestsellers[key]);

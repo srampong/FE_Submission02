@@ -24,7 +24,7 @@ cs.views.auth = {
         password: formEl.password.value, 
     }
   
-    User.login(slots);
+    User.login(slots,event);
     
   }
 

@@ -3,43 +3,34 @@
 ***  Methods for home dashboard   ******
 ************************************************/
 cs.views.home = {
-  setupUserInterface: function () {
+  setupUserInterface: async function () {
 
-    if (!localStorage.getItem("refresh_token_active")) {
-      Home.scheduleTokenRefresh()
-      localStorage.setItem("refresh_token_active", true)
 
-    } else {
-      console.log("token refresh active")
-    }
-
-  
-
-    Home.scheduleTokenRefresh()
-    Home.retrieveDashbaord().then(function () {
-      cs.views.home.listBestSellers();
-      cs.views.home.getOrderSummary();
-      cs.views.home.initRevenueChart("week");
-      cs.views.home.setUpSwitch();
-
-    })
-
-   
-
+     await Home.retrieveDashbaord()
+     Home.scheduleTokenRefresh()
   },
 
   getOrderSummary : function(){
 
     var weekSummary = document.getElementById("week_summary");
     var weekOrder = document.getElementById("week_order");
-    weekSummary.innerHTML = "$"+RevenueWeek.get(2).total + " / ";
-    weekOrder.innerHTML = RevenueWeek.get(2).orders + " orders";
-
+    
+    if(RevenueWeek.get(2))
+    {
+       weekSummary.innerHTML = "$"+RevenueWeek.get(2).total + " / ";
+       weekOrder.innerHTML = RevenueWeek.get(2).orders + " orders";
+    }
+   
 
     var monthSummary = document.getElementById("month_summary");
     var monthOrder = document.getElementById("month_order");
-    monthSummary.innerHTML = "$"+RevenueYear.get(2).total + " / ";
-    monthOrder.innerHTML = RevenueYear.get(2).orders + " orders";
+
+    if(RevenueYear.get(2))
+    {
+       monthSummary.innerHTML = "$"+RevenueYear.get(2).total + " / ";
+       monthOrder.innerHTML = RevenueYear.get(2).orders + " orders";
+  
+    }
 
   },
   setUpSwitch : function() {
@@ -55,6 +46,8 @@ cs.views.home = {
         chartHeader.innerHTML = "Revenue (last 7 days)";
       }
     });
+
+  
   },
 
   listBestSellers: function () {
@@ -82,7 +75,7 @@ cs.views.home = {
     // load all revenue objects
     type === "week" ? RevenueWeek.retrieveAll(): RevenueYear.retrieveAll();
     var data = type === "week"  ? RevenueWeek.instances : RevenueYear.instances;
-    console.log(type)
+   // console.log(type)
     keys = Object.keys(data);
     var revenues = [];
     // for each revenue, add to the revenue array
@@ -133,6 +126,13 @@ cs.views.home = {
 			});
 		
     
+  },
+  populateData: function()
+  {
+    cs.views.home.listBestSellers();
+    cs.views.home.getOrderSummary();
+    cs.views.home.initRevenueChart("week");
+    cs.views.home.setUpSwitch();
   }
 
 

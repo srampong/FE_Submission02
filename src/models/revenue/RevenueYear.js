@@ -70,7 +70,7 @@ RevenueYear.retrieveAll = function () {
   if (revenuesString ) {
     revenues = JSON.parse( revenuesString );
     keys = Object.keys( revenues);
-    console.log( keys.length +" revenues years loaded.");
+    //console.log( keys.length +" revenues years loaded.");
     for (i=0; i < keys.length; i++) {
       key = keys[i];
       RevenueYear.instances[key] = RevenueYear.convertRow2Obj( revenues[key]);

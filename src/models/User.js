@@ -16,8 +16,9 @@ function User (slots) {
 User.instances = {};
 
 
-User.login = function (credentials)
+User.login = function (credentials,event)
 {
+   event.preventDefault();
    var user = new User(credentials);
    
     // Authenticate user login
@@ -34,8 +35,8 @@ User.login = function (credentials)
         throw response;
     }).then(function (data) {
         
-        console.log("access_token: "+ data.access_token);
-        console.log("refresh_token: "+ data.refresh_token);
+         // console.log("access_token: "+ data.access_token);
+       // console.log("refresh_token: "+ data.refresh_token);
        
         User.save(user,data)
         document.location.href = "home.html";
@@ -76,7 +77,7 @@ User.save = function(slots,data)
     localStorage.setItem("username", slots.username);
     localStorage.setItem("password", slots.password);
     localStorage.setItem("login", true);
-    console.log("refresh_token",data.refresh_token)
+   // console.log("refresh_token",data.refresh_token)
     localStorage.setItem("access_token", data.access_token);
     localStorage.setItem("refresh_token", data.refresh_token);
 }

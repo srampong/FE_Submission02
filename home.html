@@ -13,16 +13,22 @@
 	<title>Candy Shop</title>
 
 	<link href="css/app.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">	
 	<script src="src/controllers/initialize.js"></script>
+	<script src="src/views/home.js"></script>
     <script src="src/models/Home.js"></script>
 	<script src="src/models/BestSeller.js"></script>
 	<script src="src/models/revenue/RevenueWeek.js"></script>
 	<script src="src/models/revenue/RevenueYear.js"></script>
-    <script src="src/views/home.js"></script>
-	<script>
-		window.addEventListener("load", cs.views.home.setupUserInterface);
+   
+	<script>   
+	     document.addEventListener("DOMContentLoaded", function(){
+            cs.views.home.setupUserInterface();
+			console.log("access_token: "+ localStorage.getItem("access_token"));
+         });
 	</script>
+
+	
 </head>
 
 <body>
