@@ -5,6 +5,7 @@
 cs.views.home = {
   setupUserInterface: async function () {
 
+    
      await Home.retrieveDashbaord()
     
   },

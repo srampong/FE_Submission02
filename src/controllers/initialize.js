@@ -5,15 +5,13 @@
  'use strict';
  // main namespace cs = "candy shop"
  var cs = { models:{}, views:{}, controllers:{} };
- if(localStorage.getItem("login"))
- {
-    document.location.href = "../CandyShop/home.html";
- }else{
 
-    document.location.href = "../CandyShop/index.html";
- }
+    if(localStorage.getItem("login") === true)
+    {
+       document.location.href = "../CandyShop/home.html";
+    }
 
-
+ 
  setInterval(function () {
   
    //Fetch a new access token using refresh token

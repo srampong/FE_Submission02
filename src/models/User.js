@@ -50,25 +50,17 @@ User.login = function (credentials,event)
 
 };
 
-User.logout = function (credentials)
+User.logout = function ()
 {
-   var user = new User(credentials);
-    // Authenticate user login
-   fetch('https://some-awesome-api.com/authenticate', {
-        headers: {
-            'Authorization': `Basic ${btoa(username)}:${btoa(password)}`
-        }
-    }).then(function (response) {
-        if (response.ok) {
-            return response.json();
-        }
-        throw response;
-    }).then(function (data) {
-        console.log(data);
-    }).catch(function (error) {
-        console.warn(error);
-    });
-
+   
+    //Log User out
+    if (confirm("Are you sure you want to log out") == true)
+    {
+        localStorage.setItem("login",false);
+        document.location.href = "index.html";
+      
+    }
+  
 
 };
 
