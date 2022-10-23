@@ -19,6 +19,8 @@ function Order(slots) {
 
 };
 
+var pageNum = 1;
+var currentPage = 1;
 
 Order.instances = {};
 
@@ -32,8 +34,9 @@ Order.instances = {};
 
   Order.fetchAll = function(page,search_term)
   {
+    console.log("fetching "+ page)
           // Retrieve dashboard data
-      fetch(`https://freddy.codesubmit.io/orders?page=${page}&q=${search_term}`, {
+      fetch(search_term !== ""? `https://freddy.codesubmit.io/orders?page=${page}&q=${search_term}` : `https://freddy.codesubmit.io/orders?page=${page}`, {
         method: "GET",
         headers: {
             'Content-Type': 'application/json', 'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate, br'
@@ -41,16 +44,16 @@ Order.instances = {};
             'Authorization': `Bearer ${localStorage.getItem("access_token")}`
         },
     }).then(function (response) {
-        if (response.ok) {
-            // console.log("dashboard response" + response)
+        if (response.ok) {           
+           
             return response.json();
         }
         throw response;
     }).then(function (data) {
 
-        var jsonData = JSON.parse(JSON.stringify(data));
+         var jsonData = JSON.parse(JSON.stringify(data));
          Order.saveAll(jsonData.orders)
-         cs.views.order.populateData();
+         cs.views.order.populateData(jsonData.page,jsonData.total);
 
     }).catch(function (error) {
 
@@ -62,11 +65,11 @@ Order.instances = {};
 
   Order.saveAll =   function(Orders)
   {
-
+     
     Orders.forEach(data => {
        Order.add(data);     
     });
-
+    
 
     try {
         var  OrderString = JSON.stringify( Order.instances);
@@ -90,7 +93,7 @@ Order.instances = {};
     if (OrderssString ) {
       Orders = JSON.parse( OrderssString );
       keys = Object.keys( Orders);
-     // console.log( keys.length +" Orders loaded.");
+      console.log( keys.length +" Orders loaded.");
       for (i=0; i < keys.length; i++) {
         key = keys[i];
         Order.instances[key] = Order.convertRow2Obj( Orders[key]);

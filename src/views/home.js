@@ -5,9 +5,8 @@
 cs.views.home = {
   setupUserInterface: async function () {
 
-
      await Home.retrieveDashbaord()
-     Home.scheduleTokenRefresh()
+    
   },
 
   getOrderSummary : function(){
