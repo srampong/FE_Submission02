@@ -8,6 +8,7 @@
 	<meta name="description" content="Take Home Project">
 	<meta name="author" content="Ampong Stephen Rexford">
 	<meta name="keywords" content="Candy Shop">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<title>Candy Shop</title>
@@ -80,104 +81,29 @@
 			<main class="content">
 				<div class="container-fluid p-0">
 
-					<h1 class="h3 mb-4">Orders</h1>
+                    <div class="d-flex justify-content-between mb-4">
 
-					<div class="row">
-						<div class="col-xl-12 col-xxl-12 d-flex">
-							<div class="w-100">
-								<div class="row">
-									<div class="col-sm-4">
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">Today</h5>
-													</div>
-												</div>
-												
-												<div class="mb-0">
-													<span > <i
-															class="mdi mdi-arrow-bottom-right"></i> $0 /</span>
-													<span class="text-muted">0 orders</span>
-												</div>
-											</div>
-										</div>
-										
-									</div>
-
-									<div class="col-sm-4">
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">Last week</h5>
-													</div>
-												</div>
-												
-												<div class="mb-0">
-													<span id="week_summary"> $0 /</span>
-													<span id="week_order" class="text-muted">0 orders</span>
-												</div>
-											</div>
-										</div>
-										
-									</div>
-
-									<div class="col-sm-4">
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">Last Month</h5>
-													</div>
-												</div>
-												
-												<div class="mb-0">
-													<span id="month_summary"> $0 /</span>
-													<span id="month_order" class="text-muted">0 orders</span>
-												</div>
-											</div>
-										</div>
-										
-									</div>
-								</div>
-							</div>
+						<h1 class="h3 mb-4">Orders</h1>
+						<div class=" w-50 input-group ps-5 rounded mb-3">
+							<span  style="background-color:transparent" class="input-group-text border-0" id="search-addon">
+								<i class="fas fa-search"></i>
+							</span>
+							<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+							
 						</div>
+
 					</div>
-
-
-					<div class=" mt-3 mb-4 d-flex justify-content-between">
-						<h1 id="chart_title" class="h3 ">Revenue (last 7 days)</h1> 
-						<div class="form-check form-switch">
-						  <input id="switch" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-						</div>							
-					</div>
-
-					<div class="row">
-						<div class="col-12 col-md-12 col-xxl-12 d-flex order-3 order-xxl-2">
-							<div class="card flex-fill w-100">
-								<div class="card-body d-flex w-100">
-									<div class="align-self-center chart chart-lg">
-										<canvas id="chartjs-dashboard-bar"></canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-						
-					</div>
-
-					<h1 class="h3 mb-4">Bestsellers</h1>
+				
 					<div class="row">
 						<div class="col-12 col-md-12 col-xxl-12 d-flex order-3 order-xxl-2">
 							<div class="card flex-fill">
-								<table  id="bestsellers" class="table table-hover my-0">
+								<table  id="orders" class="table table-hover my-0">
 									<thead>
 										<tr>
 											<th>Product Name</th>
-											<th>Revenue</th>
-											<th># Units Sold</th>
-											
-											
+											<th>Date</th>
+											<th>Price</th>
+											<th>Status</th>									
 										</tr>
 									</thead>
 									<tbody>
