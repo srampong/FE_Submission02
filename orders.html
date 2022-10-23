@@ -16,15 +16,12 @@
 	<link href="css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">	
 	<script src="src/controllers/initialize.js"></script>
-	<script src="src/views/home.js"></script>
-    <script src="src/models/Home.js"></script>
-	<script src="src/models/BestSeller.js"></script>
-	<script src="src/models/revenue/RevenueWeek.js"></script>
-	<script src="src/models/revenue/RevenueYear.js"></script>
-   
+	<script src="src/views/order.js"></script>
+    <script src="src/models/Order.js"></script>
+	 
 	<script>   
 	     document.addEventListener("DOMContentLoaded", function(){
-            cs.views.home.setupUserInterface();
+            cs.views.order.setupUserInterface();
 			console.log("access_token: "+ localStorage.getItem("access_token"));
          });
 	</script>

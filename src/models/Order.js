@@ -29,6 +29,37 @@ Order.instances = {};
     
   };
 
+
+  Order.fetchAll = function(page,search_term)
+  {
+          // Retrieve dashboard data
+      fetch(`https://freddy.codesubmit.io/orders?page=${page}&q=${search_term}`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json', 'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate, br'
+            , 'Connection': 'keep-alive',
+            'Authorization': `Bearer ${localStorage.getItem("access_token")}`
+        },
+    }).then(function (response) {
+        if (response.ok) {
+            // console.log("dashboard response" + response)
+            return response.json();
+        }
+        throw response;
+    }).then(function (data) {
+
+        var jsonData = JSON.parse(JSON.stringify(data));
+         Order.saveAll(jsonData.orders)
+         cs.views.order.populateData();
+
+    }).catch(function (error) {
+
+        console.warn(error);
+    });
+
+
+  }
+
   Order.saveAll =   function(Orders)
   {
 
@@ -59,7 +90,7 @@ Order.instances = {};
     if (OrderssString ) {
       Orders = JSON.parse( OrderssString );
       keys = Object.keys( Orders);
-     // console.log( keys.length +" Orderss loaded.");
+     // console.log( keys.length +" Orders loaded.");
       for (i=0; i < keys.length; i++) {
         key = keys[i];
         Order.instances[key] = Order.convertRow2Obj( Orders[key]);
