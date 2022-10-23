@@ -8,6 +8,9 @@
  if(localStorage.getItem("login"))
  {
     document.location.href = "../CandyShop/home.html";
+ }else{
+
+    document.location.href = "../CandyShop/index.html";
  }
 
 
