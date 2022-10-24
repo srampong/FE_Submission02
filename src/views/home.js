@@ -12,10 +12,12 @@
 ************************************************/
 cs.views.home = {
 
+  
+
   /**
    * set up user interface on start
    */
-  setupUserInterface: async function () {
+  setupUserInterface: async function () {   
 
     //fetch dashboard data from server
      await Home.retrieveDashbaord()
