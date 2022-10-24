@@ -6,12 +6,14 @@
  // main namespace cs = "candy shop"
  var cs = { models:{}, views:{}, controllers:{} };
 
+
+    //check if user has already login
     if(localStorage.getItem("login") === true)
     {
        document.location.href = "../CandyShop/home.html";
     }
 
- 
+ //set interval to refresh access token every 5 seconds
  setInterval(function () {
   
    //Fetch a new access token using refresh token
