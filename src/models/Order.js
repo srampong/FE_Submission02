@@ -1,12 +1,17 @@
 'use strict'
 
 /**
+ * @fileOverview  The model class Order with attribute definitions and storage management methods
+ * @author Ampong Stephen Rexford
+ */
+
+/**
  * Constructor function for the class User 
- * 
  * @constructor
  * @param {{created_at:string,customer:Map,product:Map,id:string,total:number,status:string,currency:string}} slots - Object creation slots.
  */
 
+//Constructor function
 function Order(slots) {
     
     this.product = slots.product;
@@ -19,11 +24,17 @@ function Order(slots) {
 
 };
 
-var pageNum = 1;
-var currentPage = 1;
 
+/** HashMap to store retrived orders from server
+ *  locally
+ */
 Order.instances = {};
 
+
+/**
+ *  Method to add an Order instance to local collection
+ * @param {} slots - json data 
+ */
 Order.add = function (slots) {
     var data = new Order( slots);
     // add Orders to the Orders.instances collection
@@ -32,10 +43,15 @@ Order.add = function (slots) {
  };
 
 
+ /**
+  *  Method to fetch Orders from server 
+  * @param {*} page - the page number to retrive orders 
+  * @param {*} search_term - search term to search orders from.
+  */
   Order.fetchAll = function(page,search_term)
   {
-    console.log("fetching "+ page + " "+ search_term)
-          // Retrieve dashboard data
+     
+    // Retrieve order data using access token Header
       fetch(search_term !== ""? `https://freddy.codesubmit.io/orders?page=${page}&q=${search_term}` : `https://freddy.codesubmit.io/orders?page=${page}`, {
         method: "GET",
         headers: {
@@ -45,39 +61,53 @@ Order.add = function (slots) {
         },
     }).then(function (response) {
         if (response.ok) {           
-           
+             
+           //Return retrived orders as JSON
             return response.json();
         }
         throw response;
     }).then(function (data) {
 
+        //Convert retrive orders to Javascript Object Notation(JSON)
          var jsonData = JSON.parse(JSON.stringify(data));
-        
-     
+      
+         //check if a search term was supplied 
          if(search_term)
          {
+             //clear Order instances
              Order.instances = {}  
          }
-            Order.saveAll(jsonData.orders)
-            cs.views.order.populateData(jsonData.page,jsonData.total,search_term);
+
+          //save all Orders from JSON
+          Order.saveAll(jsonData.orders)
+
+          //Populate the data into view
+          cs.views.order.populateData(jsonData.page,jsonData.total,search_term);
 
     }).catch(function (error) {
-
+ 
+        //display occured error  
         console.warn(error);
     });
 
 
   }
 
+  /**
+   * function to Save Order Instances
+   * @param {*} Orders - Orders retrieved from server
+   */
   Order.saveAll =   function(Orders)
   {
      
+    //Add All retrived orders to Order Collection
     Orders.forEach(data => {
        Order.add(data);     
     });
     
 
     try {
+        //Convert order to string and store locally
         var  OrderString = JSON.stringify( Order.instances);
         localStorage.setItem("Orders", OrderString);
       } catch (e) {
@@ -87,27 +117,42 @@ Order.add = function (slots) {
   }
 
 
+  /**
+   * Retrive  stored Orders
+   */
   Order.retrieveAll = function () {
     var key="", keys=[], OrderssString ="", Orders={}, i=0;  
     try {
+
+      //Check if Orders have been Stored and Retrieve them
       if (localStorage.getItem("Orders")) {
         OrderssString  = localStorage.getItem("Orders");
       }
     } catch (e) {
       alert("Error when reading from Local Storage\n" + e);
     }
+
+    //if Stored Orders, Convert them to JSON and add them to Order Instances
     if (OrderssString ) {
+     
+      //parse Order string to JSON
       Orders = JSON.parse( OrderssString );
+      
+      //Get all the Keys associated with the Order JSON
       keys = Object.keys( Orders);
-      console.log( keys.length +" Orders loaded.");
+    
+      //Iterate through all the Orders
       for (i=0; i < keys.length; i++) {
         key = keys[i];
+       
+        //Add Converted Order Object to Order Instances 
         Order.instances[key] = Order.convertRow2Obj( Orders[key]);
       }
     }
   };
 
 
+  //Convert data into an Order Object
   Order.convertRow2Obj = function (OrderRow) {
     var order = new Order( OrderRow);
     return order;
